@@ -10,12 +10,16 @@
 
 #pragma once
 #include "..\dynamite\math\vector2.h"
+#include "..\dynamite\camera.h"
 
 class Core;
 
+class TileGrid;
+
 class Game {
 protected:
-
+	TileGrid* grid;
+	Camera* camera;
 public:
 	/**
 	* Constructor
