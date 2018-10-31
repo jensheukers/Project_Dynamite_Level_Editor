@@ -20,6 +20,20 @@ Game::Game() {
 }
 
 void Game::Update() {
+
+	if (grid->GetEntityByTilePosition(Input::Instance()->GetMousePosition())) {
+		currentTile = grid->GetEntityByTilePosition(Input::Instance()->GetMousePosition());
+		if (currentTile != previousTile) {
+			currentTile->GetComponent<Sprite>()->SetTexture(Core::Instance()->GetResourcePath("editor\\tile_selected.tga"));
+
+			if (previousTile) {
+				previousTile->GetComponent<Sprite>()->SetTexture(Core::Instance()->GetResourcePath("editor\\tile.tga"));
+			}
+		}
+
+		previousTile = grid->GetEntityByTilePosition(Input::Instance()->GetMousePosition());
+	}
+
 	if (Input::Instance()->KeyPressed(KeyCode::ArrowRight)) {
 		camera->SetPosition(Vector2(camera->GetXCoord() + 32, camera->GetYCoord()));
 		grid->HandleTilesOffset(Vector2(32,0));

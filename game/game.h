@@ -3,7 +3,7 @@
 *
 *	Description: Project Dynamite level editor, is a level editor that can save .dynamite files
 *				 these files can be loaded by the framework as scenes
-*	Version: 30/10/2018
+*	Version: 31/10/2018
 *
 *	© 2018, www.jensapplications.com
 */
@@ -11,6 +11,7 @@
 #pragma once
 #include "..\dynamite\math\vector2.h"
 #include "..\dynamite\camera.h"
+#include "..\dynamite\entity.h"
 
 class Core;
 
@@ -20,6 +21,8 @@ class Game {
 protected:
 	TileGrid* grid;
 	Camera* camera;
+	Entity* currentTile;
+	Entity* previousTile;
 public:
 	/**
 	* Constructor
