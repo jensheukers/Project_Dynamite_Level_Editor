@@ -25,7 +25,7 @@ TileGrid::TileGrid() {
 
 Entity* TileGrid::GetEntityByTilePosition(Vector2 position) {
 	for (int i = 0; i < tiles.size(); i++) {
-		if(Physics::InRangePoint(position, *tiles[i]->GetComponent<Collider>())) {
+		if(Physics::InRangePoint(position, tiles[i]->GetComponent<Collider>())) {
 			return tiles[i];
 		}
 	}
