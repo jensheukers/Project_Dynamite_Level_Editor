@@ -7,6 +7,7 @@
 */
 
 #include "../dynamite/core.h"
+#include "../dynamite/component/sprite.h"
 #include "../dynamite/event/input.h"
 #include "tilegrid.h"
 #include "game.h"
@@ -17,9 +18,42 @@ Game::Game() {
 	SceneManager::Instance()->SetActiveScene("_empty");
 
 	grid = new TileGrid();
+	gridEnabled = true;
+
+
+	Font* font = new Font(Core::Instance()->GetResourcePath("font\\malgunGothic.tga"), Core::Instance()->GetResourcePath("font\\malgunGothic.csv"));
+	cameraPosText = new Text(font);
+
+	SceneManager::Instance()->GetActiveScene()->AddUIElement(cameraPosText);
 }
 
 void Game::Update() {
+
+	if (this->gridEnabled) {
+		cameraPosText->SetText("Camera Position : ");
+		cameraPosText->Append(std::to_string(camera->GetXCoord()));
+		cameraPosText->Append(" , ");
+		cameraPosText->Append(std::to_string(camera->GetYCoord()));
+	}
+	else {
+		cameraPosText->SetText("");
+	}
+
+	if (Input::Instance()->KeyPressed(KeyCode::Grave)) {
+		if (this->gridEnabled) {
+			this->DisableGrid();
+		}
+		else {
+			currentTile->GetComponent<Sprite>()->SetTexture(Core::Instance()->GetResourcePath("editor\\tile_selected.tga"));
+			this->gridEnabled = true;
+		}
+	}
+
+	//Handle Grid
+
+	if (!gridEnabled) {
+		return;
+	}
 
 	if (grid->GetEntityByTilePosition(Input::Instance()->GetMousePosition())) {
 		currentTile = grid->GetEntityByTilePosition(Input::Instance()->GetMousePosition());
@@ -53,4 +87,9 @@ void Game::Update() {
 		camera->SetPosition(Vector2(camera->GetXCoord(), camera->GetYCoord() - 32));
 		grid->HandleTilesOffset(Vector2(0, -32));
 	}
+}
+
+void Game::DisableGrid() {
+	this->gridEnabled = false;
+	currentTile->GetComponent<Sprite>()->SetTexture(Core::Instance()->GetResourcePath("editor\\tile.tga"));
 }

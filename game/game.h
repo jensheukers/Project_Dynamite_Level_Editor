@@ -12,6 +12,7 @@
 #include "..\dynamite\math\vector2.h"
 #include "..\dynamite\camera.h"
 #include "..\dynamite\entity.h"
+#include "..\dynamite\ui\text.h"
 
 class Core;
 
@@ -23,6 +24,8 @@ protected:
 	Camera* camera;
 	Entity* currentTile;
 	Entity* previousTile;
+	Text* cameraPosText;
+	bool gridEnabled;
 public:
 	/**
 	* Constructor
@@ -47,4 +50,6 @@ public:
 	* Update method gets called each frame.
 	*/
 	virtual void Update();
+
+	void DisableGrid();
 };
