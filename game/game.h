@@ -3,7 +3,7 @@
 *
 *	Description: Project Dynamite level editor, is a level editor that can save .dynamite files
 *				 these files can be loaded by the framework as scenes
-*	Version: 31/10/2018
+*	Version: 9/11/2018
 *
 *	© 2018, www.jensapplications.com
 */

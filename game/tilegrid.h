@@ -1,3 +1,11 @@
+/**
+*	Filename: tilegrid.h
+*
+*	Description: Header file for TileGrid class
+*	Version: 9/11/2018
+*
+*	© 2018, www.jensapplications.com
+*/
 #pragma once
 #include <iostream>
 #include <vector>

@@ -1,3 +1,12 @@
+/**
+*	Filename: tilegrid.cpp
+*
+*	Description: Source file for TileGrid class
+*	Version: 9/11/2018
+*
+*	© 2018, www.jensapplications.com
+*/
+
 #include "tilegrid.h"
 #include "../dynamite/core.h"
 #include "../dynamite/scenemanager.h"
