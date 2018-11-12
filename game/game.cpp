@@ -1,14 +1,14 @@
 /**
 *	Filename: game.cpp
 *
-*	Version: 9/11/2018
+*	Version: 12/11/2018
 *
 *	© 2018, www.jensapplications.com
 */
 
-#include "../dynamite/core.h"
-#include "../dynamite/component/sprite.h"
-#include "../dynamite/event/input.h"
+#include "..\dynamite\core.h"
+#include "..\dynamite\component\sprite.h"
+#include "..\dynamite\event\input.h"
 #include "tilegrid.h"
 #include "game.h"
 
@@ -24,28 +24,31 @@ Game::Game() {
 	Font* font = new Font(Core::Instance()->GetResourcePath("font\\malgunGothic.tga"), Core::Instance()->GetResourcePath("font\\malgunGothic.csv"));
 	cameraPosText = new Text(font);
 
+	menubar = new MenuBar();
+	menubar->SetActive(false);
+
 	SceneManager::Instance()->GetActiveScene()->AddUIElement(cameraPosText);
 }
 
 void Game::Update() {
-
-	if (this->gridEnabled) {
+	if (cameraPosText->IsActive()) {
 		cameraPosText->SetText("Camera Position : ");
 		cameraPosText->Append(std::to_string(camera->GetXCoord()));
 		cameraPosText->Append(" , ");
 		cameraPosText->Append(std::to_string(camera->GetYCoord()));
 	}
-	else {
-		cameraPosText->SetText("");
-	}
 
 	if (Input::Instance()->KeyPressed(KeyCode::Grave)) {
 		if (this->gridEnabled) {
 			this->DisableGrid();
+			cameraPosText->SetActive(false);
+			menubar->SetActive(true);
 		}
 		else {
 			currentTile->GetComponent<Sprite>()->SetTexture(Core::Instance()->GetResourcePath("editor\\tile_selected.tga"));
 			this->gridEnabled = true;
+			cameraPosText->SetActive(true);
+			menubar->SetActive(false);
 		}
 	}
 

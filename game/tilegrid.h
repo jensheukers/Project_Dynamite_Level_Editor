@@ -6,6 +6,7 @@
 *
 *	© 2018, www.jensapplications.com
 */
+
 #pragma once
 #include <iostream>
 #include <vector>

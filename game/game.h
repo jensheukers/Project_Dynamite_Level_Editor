@@ -13,6 +13,7 @@
 #include "..\dynamite\camera.h"
 #include "..\dynamite\entity.h"
 #include "..\dynamite\ui\text.h"
+#include "hud\hudelements.h"
 
 class Core;
 
@@ -20,6 +21,7 @@ class TileGrid;
 
 class Game {
 protected:
+	MenuBar * menubar;
 	TileGrid* grid;
 	Camera* camera;
 	Entity* currentTile;
@@ -27,6 +29,7 @@ protected:
 	Text* cameraPosText;
 	bool gridEnabled;
 public:
+
 	/**
 	* Constructor
 	*/
