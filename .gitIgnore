@@ -16,7 +16,6 @@ latex
 html
 dynamite
 external
-CMakeLists.txt
 Doxyfile
 glew32.dll
 SDL2.dll
