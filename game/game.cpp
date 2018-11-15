@@ -20,9 +20,9 @@ Game::Game() {
 	grid = new TileGrid();
 	gridEnabled = true;
 
+	ResourceManager::Instance()->AddFont("malgunGothic", Core::Instance()->GetResourcePath("font\\malgunGothic.tga"), Core::Instance()->GetResourcePath("font\\malgunGothic.csv"));
 
-	Font* font = new Font(Core::Instance()->GetResourcePath("font\\malgunGothic.tga"), Core::Instance()->GetResourcePath("font\\malgunGothic.csv"));
-	cameraPosText = new Text(font);
+	cameraPosText = new Text(ResourceManager::Instance()->GetFont("malgunGothic"));
 
 	menubar = new MenuBar();
 	menubar->SetActive(false);

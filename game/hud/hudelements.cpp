@@ -10,6 +10,7 @@
 #include "hudelements.h"
 #include "../game.h"
 #include "../../dynamite/core.h"
+#include "../../dynamite/resourcemanager.h"
 #include "../../dynamite/component/sprite.h"
 #include "../../dynamite/component/collider.h"
 
@@ -25,7 +26,7 @@ MenuBar::MenuBar() {
 	SceneManager::Instance()->GetActiveScene()->AddUIElement(this);
 
 	//Create the font
-	font = new Font(Core::Instance()->GetResourcePath("font\\malgunGothic.tga"), Core::Instance()->GetResourcePath("font\\malgunGothic.csv"));
+	font = ResourceManager::Instance()->GetFont("malgunGothic");
 
 	//Create all the menu buttons
 	
@@ -84,7 +85,7 @@ Window::Window() {
 	SceneManager::Instance()->GetActiveScene()->AddUIElement(this);
 
 	//Create the font
-	font = new Font(Core::Instance()->GetResourcePath("font\\malgunGothic.tga"), Core::Instance()->GetResourcePath("font\\malgunGothic.csv"));
+	font = ResourceManager::Instance()->GetFont("malgunGothic");
 
 	//Close Button
 	WindowCloseButton* close = new WindowCloseButton(this);
