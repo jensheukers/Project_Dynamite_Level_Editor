@@ -30,7 +30,7 @@ MenuBar::MenuBar() {
 	//Create all the menu buttons
 	
 	//File Button
-	Button* file = new Button();
+	FileButton* file = new FileButton();
 	file->SetScale(Vector2(2.5f,1.0f));
 	file->ignoreParentScaling = true;
 
@@ -41,7 +41,7 @@ MenuBar::MenuBar() {
 	fileText->SetZLayer(5);
 
 	//Selection Button
-	Button* selection = new Button();
+	SelectionButton* selection = new SelectionButton();
 	selection->localPosition = Vector2(32 * 2.5f, 0);
 	selection->SetScale(Vector2(2.5f, 1.0f));
 	selection->ignoreParentScaling = true;
@@ -52,7 +52,7 @@ MenuBar::MenuBar() {
 	selectionText->ignoreParentScaling = true;
 
 	//Help Button
-	Button* help = new Button();
+	HelpButton* help = new HelpButton();
 	help->localPosition = Vector2(64 * 2.5f, 0);
 	help->SetScale(Vector2(2.5f, 1.0f));
 	help->ignoreParentScaling = true;
@@ -87,7 +87,7 @@ Window::Window() {
 	font = new Font(Core::Instance()->GetResourcePath("font\\malgunGothic.tga"), Core::Instance()->GetResourcePath("font\\malgunGothic.csv"));
 
 	//Close Button
-	Button* close = new Button();
+	WindowCloseButton* close = new WindowCloseButton(this);
 	close->onEnterColor = ColorRGB(255,0,0);
 	close->onLeaveColor = ColorRGB(150, 0, 0);
 	close->GetComponent<Sprite>()->GetTexture()->SetColor(close->onLeaveColor);
@@ -122,4 +122,61 @@ void Button::OnEnter() {
 
 void Button::OnLeave() {
 	this->GetComponent<Sprite>()->GetTexture()->SetColor(onLeaveColor);
+}
+
+FileButton::FileButton() {
+	this->_fileWindow = new Window();
+	_fileWindow->position = Vector2(0, 32); //TEMPORARY HARDCODED
+
+	this->_fileWindow->SetActive(false);
+}
+
+void FileButton::OnClick(int btn) {
+	if (!this->_fileWindow->IsActive()) {
+		this->_fileWindow->SetActive(true);
+	}
+	else {
+		this->_fileWindow->SetActive(false);
+	}
+}
+
+SelectionButton::SelectionButton() {
+	this->_selectionWindow = new Window();
+	_selectionWindow->position = Vector2(_selectionWindow->GetScale().GetX() * 32, 32); //TEMPORARY HARDCODED
+
+	this->_selectionWindow->SetActive(false);
+}
+
+void SelectionButton::OnClick(int btn) {
+	if (!this->_selectionWindow->IsActive()) {
+		this->_selectionWindow->SetActive(true);
+	}
+	else {
+		this->_selectionWindow->SetActive(false);
+	}
+}
+
+HelpButton::HelpButton() {
+	this->_helpWindow = new Window();
+	_helpWindow->position = Vector2(0, (_helpWindow->GetScale().GetY() * 32) + 32); //TEMPORARY HARDCODED
+
+	this->_helpWindow->SetActive(false);
+}
+
+void HelpButton::OnClick(int btn) {
+	if (!this->_helpWindow->IsActive()) {
+		this->_helpWindow->SetActive(true);
+	}
+	else {
+		this->_helpWindow->SetActive(false);
+	}
+}
+
+
+WindowCloseButton::WindowCloseButton(Window* window) {
+	this->window = window;
+}
+
+void WindowCloseButton::OnClick(int btn) {
+	this->window->SetActive(false);
 }

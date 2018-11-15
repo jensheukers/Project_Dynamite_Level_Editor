@@ -23,7 +23,6 @@ class Window : public UIElement {
 public:
 	Font* font;
 	Window();
-	Window(Vector2 size);
 };
 
 // BUTTON FORMAT
@@ -34,4 +33,38 @@ public:
 	Button();
 	void OnEnter() override;
 	void OnLeave() override;
+};
+
+//Button specific
+
+class FileButton : public Button {
+private:
+	Window* _fileWindow;
+public:
+	FileButton();
+	void OnClick(int btn) override;
+};
+
+class SelectionButton : public Button {
+private:
+	Window * _selectionWindow;
+public:
+	SelectionButton();
+	void OnClick(int btn) override;
+};
+
+class HelpButton : public Button {
+private:
+	Window * _helpWindow;
+public:
+	HelpButton();
+	void OnClick(int btn) override;
+};
+
+class WindowCloseButton : public Button {
+private:
+	Window * window;
+public:
+	WindowCloseButton(Window* window);
+	void OnClick(int btn) override;
 };
