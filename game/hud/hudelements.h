@@ -20,9 +20,30 @@ public:
 
 // WINDOW FORMAT
 class Window : public UIElement {
+private:
+	Text * title;
 public:
 	Font* font;
 	Window();
+	void SetTitleText(std::string titlestr);
+};
+
+// WINDOW SPECIFIC
+class FileWindow : public Window {
+public:
+	FileWindow();
+};
+
+// WINDOW SPECIFIC
+class SelectionWindow : public Window {
+public:
+	SelectionWindow();
+};
+
+// WINDOW SPECIFIC
+class HelpWindow : public Window {
+public:
+	HelpWindow();
 };
 
 // BUTTON FORMAT
@@ -36,7 +57,6 @@ public:
 };
 
 //Button specific
-
 class FileButton : public Button {
 private:
 	Window* _fileWindow;

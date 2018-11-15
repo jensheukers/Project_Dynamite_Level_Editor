@@ -85,7 +85,12 @@ Window::Window() {
 	SceneManager::Instance()->GetActiveScene()->AddUIElement(this);
 
 	//Create the font
-	font = ResourceManager::Instance()->GetFont("malgunGothic");
+	Font* font = ResourceManager::Instance()->GetFont("malgunGothic");
+
+	title = new Text(font);
+	title->localPosition = Vector2(10,5);
+
+	this->AddChild(title);
 
 	//Close Button
 	WindowCloseButton* close = new WindowCloseButton(this);
@@ -104,6 +109,62 @@ Window::Window() {
 	closeCross->ignoreParentScaling = true;
 
 	close->AddChild(closeCross);
+}
+
+void Window::SetTitleText(std::string titlestr) {
+	title->SetText(titlestr);
+}
+
+//Windows
+FileWindow::FileWindow() {
+	this->SetTitleText("File");
+}
+
+
+SelectionWindow::SelectionWindow() {
+	this->SetTitleText("Selection");
+}
+
+HelpWindow::HelpWindow() {
+	this->SetTitleText("Help");
+
+	//Controls
+	Text* ctrl1 = new Text(ResourceManager::Instance()->GetFont("malgunGothic"));
+	ctrl1->SetText("~ = Open Menu");
+	ctrl1->localPosition = Vector2(10, 2 * 32);
+	this->AddChild(ctrl1);
+
+	Text* ctrl2 = new Text(ResourceManager::Instance()->GetFont("malgunGothic"));
+	ctrl2->SetText("RMB = Place Current Entity");
+	ctrl2->localPosition = Vector2(10, 3 * 32);
+	this->AddChild(ctrl2);
+
+	Text* ctrl3 = new Text(ResourceManager::Instance()->GetFont("malgunGothic"));
+	ctrl3->SetText("LMB = Remove Current Entity");
+	ctrl3->localPosition = Vector2(10, 4 * 32);
+	this->AddChild(ctrl3);
+
+	Text* ctrl4 = new Text(ResourceManager::Instance()->GetFont("malgunGothic"));
+	ctrl4->SetText("Left/Right Arrow = Move Camera Horizontal");
+	ctrl4->localPosition = Vector2(10, 5 * 32);
+	this->AddChild(ctrl4);
+
+	Text* ctrl5 = new Text(ResourceManager::Instance()->GetFont("malgunGothic"));
+	ctrl5->SetText("Up/Down Arrow = Move Camera Vertical");
+	ctrl5->localPosition = Vector2(10, 6 * 32);
+	this->AddChild(ctrl5);
+
+	//Credits
+	Text* credits = new Text(ResourceManager::Instance()->GetFont("malgunGothic"));
+	credits->SetText("Project Dynamite Level Editor, Created by Jens Heukers");
+	credits->localPosition = Vector2(10, 8 * 32);
+	this->AddChild(credits);
+
+	Text* version = new Text(ResourceManager::Instance()->GetFont("malgunGothic"));
+	version->SetText("Version: ");
+	version->Append(Game::GetVersion());
+	version->localPosition = Vector2(10, 9 * 32);
+	this->AddChild(version);
 }
 
 Button::Button() {
@@ -126,7 +187,7 @@ void Button::OnLeave() {
 }
 
 FileButton::FileButton() {
-	this->_fileWindow = new Window();
+	this->_fileWindow = new FileWindow();
 	_fileWindow->position = Vector2(0, 32); //TEMPORARY HARDCODED
 
 	this->_fileWindow->SetActive(false);
@@ -142,7 +203,7 @@ void FileButton::OnClick(int btn) {
 }
 
 SelectionButton::SelectionButton() {
-	this->_selectionWindow = new Window();
+	this->_selectionWindow = new SelectionWindow();
 	_selectionWindow->position = Vector2(_selectionWindow->GetScale().GetX() * 32, 32); //TEMPORARY HARDCODED
 
 	this->_selectionWindow->SetActive(false);
@@ -158,7 +219,7 @@ void SelectionButton::OnClick(int btn) {
 }
 
 HelpButton::HelpButton() {
-	this->_helpWindow = new Window();
+	this->_helpWindow = new HelpWindow();
 	_helpWindow->position = Vector2(0, (_helpWindow->GetScale().GetY() * 32) + 32); //TEMPORARY HARDCODED
 
 	this->_helpWindow->SetActive(false);
