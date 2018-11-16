@@ -2,7 +2,7 @@
 *	Filename: hudelements.cpp
 *
 *	Description: Source file for all hud elements in the editor
-*	Version: 12/11/2018
+*	Version: 16/11/2018
 *
 *	© 2018, www.jensapplications.com
 */
@@ -13,6 +13,7 @@
 #include "../../dynamite/resourcemanager.h"
 #include "../../dynamite/component/sprite.h"
 #include "../../dynamite/component/collider.h"
+#include "../../dynamite/physics/physics.h"
 
 MenuBar::MenuBar() {
 	this->AddComponent<Sprite>()->CreateTexture(Core::Instance()->GetResourcePath("editor\\empty.tga"));
@@ -109,6 +110,23 @@ Window::Window() {
 	closeCross->ignoreParentScaling = true;
 
 	close->AddChild(closeCross);
+}
+
+void Window::Update() {
+	//Handle window positions
+	if (Physics::InRangePoint(Input::Instance()->GetMousePositionRelativeToScreen(), this->GetComponent<Collider>())) {
+		if (Input::Instance()->ButtonPressed(2)) {
+			_movingWindow = true;
+		}
+	}
+
+	if (_movingWindow && !Input::Instance()->ButtonPressed(2)) {
+		_movingWindow = false;
+	}
+
+	if (_movingWindow) {
+		this->position = Input::Instance()->GetMousePositionRelativeToScreen();
+	}
 }
 
 void Window::SetTitleText(std::string titlestr) {

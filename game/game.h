@@ -31,7 +31,7 @@ protected:
 public:
 
 	static const std::string GetVersion() {
-		return "15/11/2018";
+		return "16/11/2018";
 	}
 
 	/**

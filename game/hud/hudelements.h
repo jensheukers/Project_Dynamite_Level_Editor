@@ -2,7 +2,7 @@
 *	Filename: hudelements.h
 *
 *	Description: Header file for all hud elements in the editor
-*	Version: 12/11/2018
+*	Version: 16/11/2018
 *
 *	© 2018, www.jensapplications.com
 */
@@ -21,10 +21,12 @@ public:
 // WINDOW FORMAT
 class Window : public UIElement {
 private:
+	bool _movingWindow;
 	Text * title;
 public:
 	Font* font;
 	Window();
+	void Update() override;
 	void SetTitleText(std::string titlestr);
 };
 
